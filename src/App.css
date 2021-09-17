@@ -15,3 +15,22 @@
 ::-webkit-scrollbar-thumb:hover {
   background-color: #5C527F;
 }
+
+.codeArea {
+    width: 700px;
+    height: 300px;
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    transition: all 0.5s;
+    border: 0px;
+    resize: none;
+    outline: 0px;
+    color: #6E85B2;
+}
+
+.codeArea:focus {
+    background-color: #6E85B2;
+    color: #FFFFFF;
+}
