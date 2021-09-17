@@ -2,25 +2,31 @@ import "./App.css";
 import axios from "axios"
 import { useEffect, useState } from "react";
 
-const apiURL = "https://the-zone-db.herokuapp.com/Session"
+const apiURL = "https://the-zone-db.herokuapp.com/Session";
 
 const App = () => {
-  const [session, setSession] = useState("")
+  const [session, setSession] = useState({});
+  const [content, setContent] = useState("");
 
   useEffect(() => {
     axios.get(apiURL).then(re => {
       setSession(re.data)
+      setContent(re.data.content)
     })
   }, [session])
 
-  const handleChange = (event) => {
-    let newContent = event.target.value;
-
-    axios.put(apiURL, {...session, content: newContent}).then(re => {
+  const handleUpdate = (text) => {
+    axios.put(apiURL, {...session, content: text}).then(re => {
       axios.get(apiURL).then(re => {
         setSession(re.data)
+        setContent(re.data.content)
       })
     })
+  }
+
+  const handleChange = (event) => {
+    setContent(event.target.value)
+    handleUpdate(event.target.value)
   }
 
   return (
@@ -34,7 +40,7 @@ const App = () => {
         // boxSizing: "border-box",
       }}
     >
-      <textarea className="codeArea" value={session.content} onChange={handleChange} />
+      <textarea className="codeArea" defaultValue={content} onChange={handleChange} />
     </div>
   );
 };
